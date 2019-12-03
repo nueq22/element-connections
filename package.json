@@ -1,0 +1,17 @@
+{
+  "name": "elements-connections",
+  "version": "1.0.0",
+  "description": "Connect DOM Elements with line with vanilla js and svg",
+  "main": "index.js",
+  "repository": "git@github.com:nueq22/element-connections.git",
+  "author": "Vladimir Yavdoshchuk <yavdoshchuk.vladimir@steelkiwi.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "rollup": "^1.27.8",
+    "rollup-plugin-typescript2": "^0.25.2",
+    "typescript": "^3.7.2"
+  }
+}
