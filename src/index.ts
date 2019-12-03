@@ -1,6 +1,7 @@
 import Point from "./Point";
 import Style from "./Style";
 import Polyline from "./Polyline";
+import SvgCanvas from "./SvgCanvas";
 
 interface Props {
     container: HTMLElement;
@@ -49,13 +50,7 @@ class ElementConnections {
     }
 
     draw(): SVGElement {
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('viewBox', `0 0 ${document.body.offsetWidth} ${document.body.offsetHeight}`)
-        svg.style.position = 'absolute';
-        svg.style.top = '0';
-        svg.style.left = '0';
-        svg.style.zIndex = '-1';
-
+        const svg = new SvgCanvas().element;
         const polyline = new Polyline(this.points, this.style);
         svg.appendChild(polyline.element);
         return svg;

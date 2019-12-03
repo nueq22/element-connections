@@ -21,6 +21,24 @@
         return Polyline;
     }());
 
+    var SvgCanvas = /** @class */ (function () {
+        function SvgCanvas() {
+            this.element = this.createElement();
+        }
+        SvgCanvas.prototype.createElement = function () {
+            var bodyWidth = document.body.offsetWidth;
+            var bodyHeight = document.body.offsetHeight;
+            var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('viewBox', "0 0 " + bodyWidth + " " + bodyHeight);
+            svg.style.position = 'absolute';
+            svg.style.top = '0';
+            svg.style.left = '0';
+            svg.style.zIndex = '-1';
+            return svg;
+        };
+        return SvgCanvas;
+    }());
+
     var defaultStyles = { color: 'black', width: '1' };
     var ElementConnections = /** @class */ (function () {
         function ElementConnections(_a) {
@@ -54,12 +72,7 @@
             };
         };
         ElementConnections.prototype.draw = function () {
-            var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            svg.setAttribute('viewBox', "0 0 " + document.body.offsetWidth + " " + document.body.offsetHeight);
-            svg.style.position = 'absolute';
-            svg.style.top = '0';
-            svg.style.left = '0';
-            svg.style.zIndex = '-1';
+            var svg = new SvgCanvas().element;
             var polyline = new Polyline(this.points, this.style);
             svg.appendChild(polyline.element);
             return svg;

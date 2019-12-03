@@ -11,7 +11,7 @@ class Polyline {
         this.element = this.createElement(style);
     }
 
-    createElement(style: Style) {
+    createElement(style: Style): SVGPolylineElement {
         const polyline: SVGPolylineElement = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
         polyline.setAttribute('fill', 'none');
         polyline.setAttribute('points', this.points);

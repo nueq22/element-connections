@@ -6,5 +6,5 @@ const sq6 = document.getElementById('sq6')
 
 new ElementConnections({
     container: lineContainer,
-    elements: [sq1, sq2, sq6]
+    elements: [sq1, sq2, sq6, sq3]
 })
