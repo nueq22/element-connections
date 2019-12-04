@@ -58,13 +58,19 @@ class ElementConnections {
     }
 
     handleResize(): void {
-        window.addEventListener('resize', () => {
-            requestAnimationFrame(() => {
-                this.animated = false;
-                this.points = this.getPoints();
-                this.container.autosize();
-                this.render()
-            })
+        window.addEventListener('resize', this.resizeListener)
+    }
+
+    destroy(): void {
+        window.removeEventListener('resize', this.resizeListener)
+    }
+
+    resizeListener = () => {
+        requestAnimationFrame(() => {
+            this.animated = false;
+            this.points = this.getPoints();
+            this.container.autosize();
+            this.render()
         })
     }
 
