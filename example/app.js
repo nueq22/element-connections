@@ -10,7 +10,9 @@ const p = new ElementConnections({
     animated: true
 })
 
-p.animate();
+function animateFirstDrawer() {
+    p.animate();
+}
 
 const linesContainer2 = document.getElementById('connections2');
 const sq21 = document.getElementById('sq21')
