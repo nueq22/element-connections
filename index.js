@@ -2,23 +2,48 @@
 (function () {
     'use strict';
 
-    var Polyline = /** @class */ (function () {
-        function Polyline(points, style) {
+    var Path = /** @class */ (function () {
+        function Path(points, style, animated) {
             this.points = this.formatPoints(points);
             this.element = this.createElement(style);
+            this.lineLength = this.element.getTotalLength().toString();
+            if (animated) {
+                this.hideLine();
+            }
         }
-        Polyline.prototype.createElement = function (style) {
-            var polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        Path.prototype.createElement = function (style) {
+            var polyline = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             polyline.setAttribute('fill', 'none');
-            polyline.setAttribute('points', this.points);
             polyline.setAttribute('stroke-width', style.width);
             polyline.setAttribute('stroke', style.color);
+            if (this.points) {
+                polyline.setAttribute('d', this.points);
+            }
             return polyline;
         };
-        Polyline.prototype.formatPoints = function (points) {
-            return points.map(function (point) { return point.x + "," + point.y; }).join(' ');
+        Path.prototype.hideLine = function () {
+            this.element.style.strokeDasharray = this.lineLength;
+            this.element.style.strokeDashoffset = this.lineLength;
         };
-        return Polyline;
+        Path.prototype.animate = function () {
+            var _this = this;
+            requestAnimationFrame(function () {
+                var interval = setInterval(function () {
+                    var current = Number(_this.element.style.strokeDashoffset);
+                    if (current > 0) {
+                        _this.element.style.strokeDashoffset = (current - 10).toString();
+                    }
+                    else {
+                        clearInterval(interval);
+                    }
+                }, 16);
+            });
+        };
+        Path.prototype.formatPoints = function (points) {
+            var pointsString = points.map(function (point) { return point.x + "," + point.y; }).join(' ');
+            return pointsString.length ? "M" + pointsString : null;
+        };
+        return Path;
     }());
 
     var SvgCanvas = /** @class */ (function () {
@@ -31,6 +56,7 @@
             this.element.innerHTML = '';
         };
         SvgCanvas.prototype.insert = function (child) {
+            // @ts-ignore
             this.element.appendChild(child);
         };
         SvgCanvas.prototype.autosize = function () {
@@ -54,14 +80,16 @@
     var defaultStyles = { color: 'black', width: '1' };
     var ElementConnections = /** @class */ (function () {
         function ElementConnections(_a) {
-            var container = _a.container, elements = _a.elements, _b = _a.style, style = _b === void 0 ? defaultStyles : _b;
+            var container = _a.container, elements = _a.elements, _b = _a.style, style = _b === void 0 ? defaultStyles : _b, _c = _a.animated, animated = _c === void 0 ? false : _c;
             this.container = new SvgCanvas(container);
             this.elements = elements;
             this.points = this.getPoints();
+            this.animated = animated;
             this.style = {
                 width: style.width || defaultStyles.width,
                 color: style.color || defaultStyles.color
             };
+            this.path = new Path([], this.style, this.animated);
             this.render();
             this.handleResize();
         }
@@ -83,22 +111,26 @@
             };
         };
         ElementConnections.prototype.draw = function () {
-            return new Polyline(this.points, this.style).element;
+            this.path = new Path(this.points, this.style, this.animated);
         };
         ElementConnections.prototype.handleResize = function () {
             var _this = this;
             window.addEventListener('resize', function () {
                 requestAnimationFrame(function () {
+                    _this.animated = false;
                     _this.points = _this.getPoints();
                     _this.container.autosize();
                     _this.render();
                 });
             });
         };
+        ElementConnections.prototype.animate = function () {
+            this.path.animate();
+        };
         ElementConnections.prototype.render = function () {
-            var polyline = this.draw();
+            this.draw();
             this.container.clear();
-            this.container.insert(polyline);
+            this.container.insert(this.path.element);
         };
         return ElementConnections;
     }());

@@ -13,7 +13,8 @@ class SvgCanvas {
         this.element.innerHTML = '';
     }
 
-    insert(child: SVGPolylineElement) {
+    insert(child: SVGPathElement | null) {
+        // @ts-ignore
         this.element.appendChild(child);
     }
 
