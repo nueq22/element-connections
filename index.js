@@ -31,7 +31,7 @@
                 var interval = setInterval(function () {
                     var current = Number(_this.element.style.strokeDashoffset);
                     if (current > 0) {
-                        _this.element.style.strokeDashoffset = (current - 10).toString();
+                        _this.element.style.strokeDashoffset = (current - 25).toString();
                     }
                     else {
                         clearInterval(interval);

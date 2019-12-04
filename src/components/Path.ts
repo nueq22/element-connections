@@ -37,7 +37,7 @@ class Path {
             const interval = setInterval(() => {
                 const current = Number(this.element.style.strokeDashoffset);
                 if (current > 0) {
-                    this.element.style.strokeDashoffset = (current - 10).toString();
+                    this.element.style.strokeDashoffset = (current - 25).toString();
                 } else {
                     clearInterval(interval)
                 }
