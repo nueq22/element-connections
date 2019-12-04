@@ -22,19 +22,31 @@
     }());
 
     var SvgCanvas = /** @class */ (function () {
-        function SvgCanvas() {
-            this.element = this.createElement();
+        function SvgCanvas(el) {
+            this.element = el;
+            this.parentElement = el.parentElement || document.body;
+            this.setupContainer();
         }
-        SvgCanvas.prototype.createElement = function () {
-            var bodyWidth = document.body.offsetWidth;
-            var bodyHeight = document.body.offsetHeight;
-            var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            svg.setAttribute('viewBox', "0 0 " + bodyWidth + " " + bodyHeight);
-            svg.style.position = 'absolute';
-            svg.style.top = '0';
-            svg.style.left = '0';
-            svg.style.zIndex = '-1';
-            return svg;
+        SvgCanvas.prototype.clear = function () {
+            this.element.innerHTML = '';
+        };
+        SvgCanvas.prototype.insert = function (child) {
+            this.element.appendChild(child);
+        };
+        SvgCanvas.prototype.autosize = function () {
+            var width = this.parentElement.offsetWidth;
+            var height = this.parentElement.offsetHeight;
+            this.element.setAttribute('viewBox', "0 0 " + width + " " + height);
+        };
+        SvgCanvas.prototype.setupContainer = function () {
+            var _this = this;
+            this.element.style.position = 'absolute';
+            this.element.style.top = '0';
+            this.element.style.left = '0';
+            this.element.style.zIndex = '-1';
+            setTimeout(function () {
+                _this.autosize();
+            }, 0);
         };
         return SvgCanvas;
     }());
@@ -43,7 +55,7 @@
     var ElementConnections = /** @class */ (function () {
         function ElementConnections(_a) {
             var container = _a.container, elements = _a.elements, _b = _a.style, style = _b === void 0 ? defaultStyles : _b;
-            this.container = container;
+            this.container = new SvgCanvas(container);
             this.elements = elements;
             this.points = this.getPoints();
             this.style = {
@@ -57,10 +69,9 @@
             return this.elements.map(this.getCenter);
         };
         ElementConnections.prototype.getCenter = function (el) {
-            var _a = el.getBoundingClientRect(), top = _a.top, left = _a.left;
             var elPosition = {
-                top: window.scrollX + top,
-                left: window.scrollY + left
+                top: el.offsetTop,
+                left: el.offsetLeft,
             };
             var elSize = {
                 width: el.offsetWidth,
@@ -72,24 +83,22 @@
             };
         };
         ElementConnections.prototype.draw = function () {
-            var svg = new SvgCanvas().element;
-            var polyline = new Polyline(this.points, this.style);
-            svg.appendChild(polyline.element);
-            return svg;
+            return new Polyline(this.points, this.style).element;
         };
         ElementConnections.prototype.handleResize = function () {
             var _this = this;
             window.addEventListener('resize', function () {
                 requestAnimationFrame(function () {
                     _this.points = _this.getPoints();
+                    _this.container.autosize();
                     _this.render();
                 });
             });
         };
         ElementConnections.prototype.render = function () {
-            var el = this.draw();
-            this.container.innerHTML = '';
-            this.container.appendChild(el);
+            var polyline = this.draw();
+            this.container.clear();
+            this.container.insert(polyline);
         };
         return ElementConnections;
     }());

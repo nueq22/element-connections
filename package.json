@@ -7,11 +7,13 @@
   "author": "Vladimir Yavdoshchuk <yavdoshchuk.vladimir@steelkiwi.com>",
   "license": "MIT",
   "scripts": {
+    "dev": "rollup -c -w",
     "build": "rollup -c"
   },
   "devDependencies": {
     "rollup": "^1.27.8",
     "rollup-plugin-typescript2": "^0.25.2",
+    "rollup-watch": "^4.3.1",
     "typescript": "^3.7.2"
   }
 }

@@ -4,21 +4,21 @@ import Polyline from "./Polyline";
 import SvgCanvas from "./SvgCanvas";
 
 interface Props {
-    container: HTMLElement;
+    container: SVGElement;
     elements: HTMLElement[];
     style?: Style;
 }
 
-const defaultStyles: Style ={ color: 'black', width: '1' };
+const defaultStyles: Style = { color: 'black', width: '1' };
 
 class ElementConnections {
-    container: HTMLElement;
+    container: SvgCanvas;
     elements: HTMLElement[];
     points: Point[];
     style: Style;
 
     constructor({ container, elements, style = defaultStyles }: Props) {
-        this.container = container;
+        this.container = new SvgCanvas(container);
         this.elements = elements;
         this.points = this.getPoints();
         this.style = {
@@ -34,10 +34,9 @@ class ElementConnections {
     }
 
     getCenter(el: HTMLElement): Point {
-        const { top, left } = el.getBoundingClientRect();
         const elPosition = {
-            top: window.scrollX + top,
-            left: window.scrollY + left
+            top: el.offsetTop,
+            left: el.offsetLeft,
         }
         const elSize = {
             width: el.offsetWidth,
@@ -49,26 +48,24 @@ class ElementConnections {
         }
     }
 
-    draw(): SVGElement {
-        const svg = new SvgCanvas().element;
-        const polyline = new Polyline(this.points, this.style);
-        svg.appendChild(polyline.element);
-        return svg;
+    draw(): SVGPolylineElement {
+        return new Polyline(this.points, this.style).element;
     }
 
     handleResize(): void {
         window.addEventListener('resize', () => {
             requestAnimationFrame(() => {
                 this.points = this.getPoints();
+                this.container.autosize();
                 this.render()
             })
         })
     }
 
     render(): void {
-        const el = this.draw();
-        this.container.innerHTML = '';
-        this.container.appendChild(el);
+        const polyline = this.draw();
+        this.container.clear();
+        this.container.insert(polyline);
     }
 }
 

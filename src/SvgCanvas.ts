@@ -1,23 +1,36 @@
 class SvgCanvas {
 
     element: SVGElement;
+    parentElement: HTMLElement;
 
-    constructor() {
-        this.element = this.createElement()
+    constructor(el: SVGElement) {
+        this.element = el;
+        this.parentElement = el.parentElement || document.body;
+        this.setupContainer();
     }
 
-    createElement(): SVGElement {
-        const bodyWidth: number = document.body.offsetWidth;
-        const bodyHeight: number = document.body.offsetHeight;
+    clear(): void {
+        this.element.innerHTML = '';
+    }
 
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('viewBox', `0 0 ${bodyWidth} ${bodyHeight}`)
-        svg.style.position = 'absolute';
-        svg.style.top = '0';
-        svg.style.left = '0';
-        svg.style.zIndex = '-1';
+    insert(child: SVGPolylineElement) {
+        this.element.appendChild(child);
+    }
 
-        return svg;
+    autosize() {
+        const width = this.parentElement.offsetWidth;
+        const height = this.parentElement.offsetHeight;
+        this.element.setAttribute('viewBox', `0 0 ${width} ${height}`)
+    }
+
+    setupContainer(): void {
+        this.element.style.position = 'absolute';
+        this.element.style.top = '0';
+        this.element.style.left = '0';
+        this.element.style.zIndex = '-1';
+        setTimeout(() => {
+            this.autosize();
+        }, 0)
     }
 }
 
