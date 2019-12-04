@@ -1,12 +1,13 @@
 import Point from "./components/Point";
 import Style from "./components/Style";
-import Polyline from "./components/Polyline";
+import Path from "./components/Path";
 import SvgCanvas from "./components/SvgCanvas";
 
 interface Props {
     container: SVGElement;
     elements: HTMLElement[];
     style?: Style;
+    animated?: boolean;
 }
 
 const defaultStyles: Style = { color: 'black', width: '1' };
@@ -15,16 +16,20 @@ class ElementConnections {
     container: SvgCanvas;
     elements: HTMLElement[];
     points: Point[];
+    path: Path;
     style: Style;
+    animated: boolean;
 
-    constructor({ container, elements, style = defaultStyles }: Props) {
+    constructor({ container, elements, style = defaultStyles, animated = false }: Props) {
         this.container = new SvgCanvas(container);
         this.elements = elements;
         this.points = this.getPoints();
+        this.animated = animated;
         this.style = {
             width: style.width || defaultStyles.width,
             color: style.color || defaultStyles.color
         };
+        this.path = new Path([], this.style, this.animated);
         this.render();
         this.handleResize();
     }
@@ -48,13 +53,14 @@ class ElementConnections {
         }
     }
 
-    draw(): SVGPolylineElement {
-        return new Polyline(this.points, this.style).element;
+    draw(): void {
+        this.path = new Path(this.points, this.style, this.animated);
     }
 
     handleResize(): void {
         window.addEventListener('resize', () => {
             requestAnimationFrame(() => {
+                this.animated = false;
                 this.points = this.getPoints();
                 this.container.autosize();
                 this.render()
@@ -62,10 +68,14 @@ class ElementConnections {
         })
     }
 
+    animate() {
+        this.path.animate();
+    }
+
     render(): void {
-        const polyline = this.draw();
+        this.draw();
         this.container.clear();
-        this.container.insert(polyline);
+        this.container.insert(this.path.element);
     }
 }
 

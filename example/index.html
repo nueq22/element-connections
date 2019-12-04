@@ -9,60 +9,55 @@
     <style>
         .row {
             display: flex;
-            flex-flow: row wrap;
         }
 
-        .square {
-            width: 200px;
-            height: 200px;
-            background: coral;
+        .row.center {
+            justify-content: center;
+        }
+
+        .row.between {
+            justify-content: space-between;
+        }
+
+        .circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             flex-shrink: 0;
-            margin: 40px;
+            background: black;
         }
 
-        .cont {
+        .star {
+            max-width: 600px;
+            margin: 0 auto;
             position: relative;
+        }
+
+        .star > .row {
+            margin: 160px 0;
         }
     </style>
 </head>
 
 <body>
-
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate accusantium harum laborum vero, quasi ad explicabo voluptatum suscipit vitae atque, nam, ullam at dolor. Atque recusandae quidem excepturi ab quisquam vel, nostrum labore impedit voluptatem facilis minus cumque quis, placeat ipsam animi sint consequatur? Nobis perferendis laboriosam in distinctio sint incidunt illo doloremque asperiores pariatur eaque sed aspernatur eveniet eligendi eius sapiente quas error placeat voluptatum facere enim, necessitatibus assumenda deleniti tempore. Aspernatur voluptatibus corporis harum cupiditate, quis nemo beatae voluptatum autem laborum asperiores repellat, expedita animi incidunt sapiente alias blanditiis rerum fuga vitae fugiat quisquam. Consectetur eligendi impedit facilis.</p>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate accusantium harum laborum vero, quasi ad explicabo voluptatum suscipit vitae atque, nam, ullam at dolor. Atque recusandae quidem excepturi ab quisquam vel, nostrum labore impedit voluptatem facilis minus cumque quis, placeat ipsam animi sint consequatur? Nobis perferendis laboriosam in distinctio sint incidunt illo doloremque asperiores pariatur eaque sed aspernatur eveniet eligendi eius sapiente quas error placeat voluptatum facere enim, necessitatibus assumenda deleniti tempore. Aspernatur voluptatibus corporis harum cupiditate, quis nemo beatae voluptatum autem laborum asperiores repellat, expedita animi incidunt sapiente alias blanditiis rerum fuga vitae fugiat quisquam. Consectetur eligendi impedit facilis.</p>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate accusantium harum laborum vero, quasi ad explicabo voluptatum suscipit vitae atque, nam, ullam at dolor. Atque recusandae quidem excepturi ab quisquam vel, nostrum labore impedit voluptatem facilis minus cumque quis, placeat ipsam animi sint consequatur? Nobis perferendis laboriosam in distinctio sint incidunt illo doloremque asperiores pariatur eaque sed aspernatur eveniet eligendi eius sapiente quas error placeat voluptatum facere enim, necessitatibus assumenda deleniti tempore. Aspernatur voluptatibus corporis harum cupiditate, quis nemo beatae voluptatum autem laborum asperiores repellat, expedita animi incidunt sapiente alias blanditiis rerum fuga vitae fugiat quisquam. Consectetur eligendi impedit facilis.</p>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate accusantium harum laborum vero, quasi ad explicabo voluptatum suscipit vitae atque, nam, ullam at dolor. Atque recusandae quidem excepturi ab quisquam vel, nostrum labore impedit voluptatem facilis minus cumque quis, placeat ipsam animi sint consequatur? Nobis perferendis laboriosam in distinctio sint incidunt illo doloremque asperiores pariatur eaque sed aspernatur eveniet eligendi eius sapiente quas error placeat voluptatum facere enim, necessitatibus assumenda deleniti tempore. Aspernatur voluptatibus corporis harum cupiditate, quis nemo beatae voluptatum autem laborum asperiores repellat, expedita animi incidunt sapiente alias blanditiis rerum fuga vitae fugiat quisquam. Consectetur eligendi impedit facilis.</p>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate accusantium harum laborum vero, quasi ad explicabo voluptatum suscipit vitae atque, nam, ullam at dolor. Atque recusandae quidem excepturi ab quisquam vel, nostrum labore impedit voluptatem facilis minus cumque quis, placeat ipsam animi sint consequatur? Nobis perferendis laboriosam in distinctio sint incidunt illo doloremque asperiores pariatur eaque sed aspernatur eveniet eligendi eius sapiente quas error placeat voluptatum facere enim, necessitatibus assumenda deleniti tempore. Aspernatur voluptatibus corporis harum cupiditate, quis nemo beatae voluptatum autem laborum asperiores repellat, expedita animi incidunt sapiente alias blanditiis rerum fuga vitae fugiat quisquam. Consectetur eligendi impedit facilis.</p>
-
-    <div class="cont">
-        <svg id="connections"></svg>
-        <div class="row">
-            <div class="square" id="sq1"></div>
-            <div class="square" id="sq2"></div>
-            <div class="square" id="sq3"></div>
-            <div class="square" id="sq4"></div>
-            <div class="square" id="sq5"></div>
-            <div class="square" id="sq6"></div>
-            <div class="square" id="sq7"></div>
-            <div class="square" id="sq8"></div>
+    <h1>Element connections</h1>
+    <p>Responsive drawer of svg background that connect DOMElements by their position</p>
+    <p>Can be animated</p>
+    <h2>Examples</h2>
+    <div class="star">
+        <svg id="star-connections"></svg>
+        <div class="row center">
+            <div class="circle" id="star-1"></div>
+        </div>
+        <div class="row between">
+            <div class="circle" id="star-2"></div>
+            <div class="circle" id="star-3"></div>
+        </div>
+        <div class="row between">
+            <div class="circle" id="star-4"></div>
+            <div class="circle" id="star-5"></div>
         </div>
     </div>
-
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto veniam neque ullam autem possimus blanditiis eaque facilis. Voluptas cum et, corrupti omnis aut explicabo vero laborum nesciunt, illo tempore eius accusantium eos dolore ab repudiandae ex inventore dolorem nihil magnam.</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto veniam neque ullam autem possimus blanditiis eaque facilis. Voluptas cum et, corrupti omnis aut explicabo vero laborum nesciunt, illo tempore eius accusantium eos dolore ab repudiandae ex inventore dolorem nihil magnam.</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto veniam neque ullam autem possimus blanditiis eaque facilis. Voluptas cum et, corrupti omnis aut explicabo vero laborum nesciunt, illo tempore eius accusantium eos dolore ab repudiandae ex inventore dolorem nihil magnam.</p>
-
-    <h2>Header 2</h2>
-
-    <div class="cont">
-            <svg id="connections2"></svg>
-            <div class="row">
-                <div class="square" id="sq21"></div>
-                <div class="square" id="sq22"></div>
-                <div class="square" id="sq23"></div>
-            </div>
-        </div>
-
     <script defer src="../index.js"></script>
     <script defer src="./app.js"></script>
 </body>

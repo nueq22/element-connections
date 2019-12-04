@@ -1,23 +1,16 @@
-const linesContainer = document.getElementById('connections');
+const starContainer = document.getElementById('star-connections');
+const sp = {
+    p1: document.getElementById('star-1'),
+    p2: document.getElementById('star-2'),
+    p3: document.getElementById('star-3'),
+    p4: document.getElementById('star-4'),
+    p5: document.getElementById('star-5'),
+}
 
-const sq1 = document.getElementById('sq1')
-const sq2 = document.getElementById('sq2')
-const sq6 = document.getElementById('sq6')
-
-new ElementConnections({
-    container: linesContainer,
-    elements: [sq1, sq2, sq6, sq3]
+const starConnection = new ElementConnections({
+    container: starContainer,
+    elements: [sp.p1, sp.p5, sp.p2, sp.p3, sp.p4, sp.p1],
+    animated: true,
 })
 
-const linesContainer2 = document.getElementById('connections2');
-const sq21 = document.getElementById('sq21')
-const sq22 = document.getElementById('sq22')
-
-new ElementConnections({
-    container: linesContainer2,
-    elements: [sq21, sq22],
-    style: {
-        width: 6,
-        color: 'blue'
-    }
-})
+starConnection.animate();
