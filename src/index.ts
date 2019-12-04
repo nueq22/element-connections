@@ -1,7 +1,7 @@
-import Point from "./Point";
-import Style from "./Style";
-import Polyline from "./Polyline";
-import SvgCanvas from "./SvgCanvas";
+import Point from "./components/Point";
+import Style from "./components/Style";
+import Polyline from "./components/Polyline";
+import SvgCanvas from "./components/SvgCanvas";
 
 interface Props {
     container: SVGElement;
