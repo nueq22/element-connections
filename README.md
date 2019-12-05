@@ -11,7 +11,7 @@ Just create container for drawing connections.
 
 **Important:** Container must be `relative` because we use `absolute` position for svg.
 
-```
+```html
     <div class="container" id="connections-container">
         <svg id="connections"></svg>
         <!-- your elements for connection -->
@@ -22,7 +22,7 @@ Just create container for drawing connections.
 
 Add script in the bottom of the page and init new connection instance:
 
-```
+```html
     <script src="element-connections.js"></script>
     <script>
         const container = document.getElementById('connections-container');
@@ -47,3 +47,11 @@ ElementConnections pass config object with next props:
 |  elements | HTMLElement[] |                                            Elements for connection                                           |    Yes   |
 |  animated |    Boolean    |                         Hide connections by default and make available animate method                        |    No    |
 |   style   |     Object    | Object with `width` and `color` fields for line styling. `width` - integer number, `color` - css valid color |    No    |
+
+Available methods:
+
+|  Method |                                                         Description                                                        |
+|:-------:|:--------------------------------------------------------------------------------------------------------------------------:|
+| animate | Call animate function for drawing line between elements, work's only if `animated: true`, was passed to connections config |
+| destroy |                                        Unregister resize event listener from window                                        |
+
