@@ -4,8 +4,11 @@
   "description": "Connect DOM Elements with line with vanilla js and svg",
   "main": "index.js",
   "repository": "git@github.com:nueq22/element-connections.git",
-  "author": "Vladimir Yavdoshchuk <yavdoshchuk.vladimir@steelkiwi.com>",
+  "author": "Vladimir Yavdoshchuk <nueq22@gmail.com>",
   "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "dev": "rollup -c -w",
     "build:iife": "rollup -c",
