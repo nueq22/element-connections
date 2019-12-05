@@ -77,7 +77,16 @@ var SvgCanvas = /** @class */ (function () {
 var defaultStyles = { color: 'black', width: '1' };
 var ElementConnections = /** @class */ (function () {
     function ElementConnections(_a) {
+        var _this = this;
         var container = _a.container, elements = _a.elements, _b = _a.style, style = _b === void 0 ? defaultStyles : _b, _c = _a.animated, animated = _c === void 0 ? false : _c;
+        this.resizeListener = function () {
+            requestAnimationFrame(function () {
+                _this.animated = false;
+                _this.points = _this.getPoints();
+                _this.container.autosize();
+                _this.render();
+            });
+        };
         this.container = new SvgCanvas(container);
         this.elements = elements;
         this.points = this.getPoints();
@@ -111,15 +120,10 @@ var ElementConnections = /** @class */ (function () {
         this.path = new Path(this.points, this.style, this.animated);
     };
     ElementConnections.prototype.handleResize = function () {
-        var _this = this;
-        window.addEventListener('resize', function () {
-            requestAnimationFrame(function () {
-                _this.animated = false;
-                _this.points = _this.getPoints();
-                _this.container.autosize();
-                _this.render();
-            });
-        });
+        window.addEventListener('resize', this.resizeListener);
+    };
+    ElementConnections.prototype.destroy = function () {
+        window.removeEventListener('resize', this.resizeListener);
     };
     ElementConnections.prototype.animate = function () {
         this.path.animate();
