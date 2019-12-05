@@ -1,4 +1,5 @@
 # Element connections
+![Size](https://img.shields.io/github/size/nueq22/element-connections/dist/element-connections.js)
 ![Dependecies](https://img.shields.io/david/nueq22/element-connections)
 
 Simple lib for drawing DOM element connections with svg.
@@ -9,7 +10,7 @@ For simple using you need to download this repo and use `element-connections.js`
 
 Just create container for drawing connections. 
 
-**Important:** Container must be `relative` because we use `absolute` position for svg.
+**Important:** Container must be `relative` because we use `absolute` positioning for svg.
 
 ```html
     <div class="container" id="connections-container">
