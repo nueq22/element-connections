@@ -7,11 +7,11 @@ Simple lib for drawing DOM element connections with svg.
 ## Usage
 
 You can install package with `npm`
-```
+```bash
 npm install @nueq22/elements-connections
 ```
 Import constructor and use
-```
+```javascript
 import ElementConnections from '@nueq22/elements-connections'
 ```
 
