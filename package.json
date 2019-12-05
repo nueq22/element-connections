@@ -1,5 +1,5 @@
 {
-  "name": "elements-connections",
+  "name": "@nueq22/elements-connections",
   "version": "1.0.0",
   "description": "Connect DOM Elements with line with vanilla js and svg",
   "main": "index.js",
