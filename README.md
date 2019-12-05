@@ -6,6 +6,15 @@ Simple lib for drawing DOM element connections with svg.
 
 ## Usage
 
+You can install package with `npm`
+```
+npm install @nueq22/elements-connections
+```
+Import constructor and use
+```
+import ElementConnections from '@nueq22/elements-connections'
+```
+
 For simple using you need to download this repo and use `element-connections.js` file from `dist` folder.
 
 Just create container for drawing connections. 
